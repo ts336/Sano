@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from './styles'; // importing stylesheet
 
 // Home screen, accepts onLogout and onNavigateToInfo props
@@ -25,7 +25,11 @@ const BeforeYouBookScreen = ({ onGoBackToHome }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Before you book...</Text>
-      <Text>Here you can schedule your next visit.</Text>
+      <Text style={styles.normalColor}>Are you experiencing any of the following symptoms?</Text>
+      <Image
+        source={require('../assets/images/symptoms.png')}
+        style={styles.symptoms}>
+      </Image>
       <Button title="Home" onPress={onGoBackToHome} />
     </View>
   );

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({ //stylesheet for login
+const styles = StyleSheet.create({ //stylesheet for Sano
   container: {
     flex: 1,
     justifyContent: 'flex-start',
@@ -120,6 +120,26 @@ const styles = StyleSheet.create({ //stylesheet for login
     fontWeight: 500,
     paddingLeft: 27,
     paddingBottom: 20,
+  },
+  normalColor: {
+    fontSize: 18,
+    fontStyle: 'normal',
+    color: '#2A3A3E',
+    lineHeight: 25,
+    paddingLeft: 14,
+    paddingRight: 14,
+  },
+  normalWhite: {
+    fontSize: 18,
+    fontStyle: 'normal',
+    color: '#2A3A3E',
+    lineHeight: 25,
+    paddingLeft: 14,
+    paddingRight: 14,
+  },
+  symptoms: {
+    marginTop: 20,
+    marginLeft: -7,
   }
 });
 
