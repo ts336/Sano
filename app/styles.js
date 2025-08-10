@@ -5,10 +5,12 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 26,
+    paddingHorizontal: 26,
+    paddingTop: 70,
+    paddingBottom: 26,
   },
   title: {
-    marginTop: 135,
+    marginTop: 90,
     color: '#0F1A1D',
     fontSize: 64,
     fontWeight: 600,
@@ -48,14 +50,13 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     color: '#FFFFFF',
   },
   heading: {
-    marginTop: 85,
+    marginTop: 30,
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#2A3A3E',
     width: '100%',
     textAlign: 'left',
-    paddingLeft: 13,
   },
   input: {
     width: '80%',
@@ -220,6 +221,12 @@ const styles = StyleSheet.create({ //stylesheet for Sano
   },
   selectedRadioButtonText: { // text when selected
     color: '#FFFFFF', 
+  },
+  line: {
+    height: 1,
+    width: '90%', 
+    backgroundColor: '#ccc',
+    marginTop: 15, 
   },
 });
 

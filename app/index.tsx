@@ -7,7 +7,7 @@ import styles from './styles'; // importing stylesheet
 const HomeScreen = ({ onLogout, onNavigateToInfo }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Good morning{'\n'}Franca</Text>
+      <Text style={[styles.heading, { paddingLeft: 13 }]}>Good morning{'\n'}Franca</Text>
       <TouchableOpacity style={styles.imageButton} onPress={onNavigateToInfo}>
         <ImageBackground
           source={require('../assets/images/background-appointment.png')} // For local image saved in assets
@@ -25,7 +25,7 @@ const HomeScreen = ({ onLogout, onNavigateToInfo }) => {
 const BeforeYouBookScreen = ({ onGoBackToHome, onNavigateToAppointmentForm }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Before you book...</Text>
+      <Text style={[styles.heading, { paddingLeft: 13 }]}>Before you book...</Text>
       <Text style={styles.normalColor}>Are you experiencing any of the following symptoms?</Text>
       <Image
         source={require('../assets/images/symptoms.png')}
@@ -87,8 +87,8 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
   // if selected appointment type, changes style of button (radio button)
   // continue button disabled if saving or no appointment type has been selected
   return ( 
-    <View style={styles.container}>
-      <Text style={styles.heading}>Appointment Type</Text>
+    <View style={[styles.container, { justifyContent: 'center', alignItems: 'center'}]}>
+      <Text style={[styles.heading, { width: '100%', textAlign: 'center' }]}>Appointment Type</Text>
       <View style={styles.radioGroupContainer}>
         <TouchableOpacity
           style={[
@@ -120,6 +120,10 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      <View style={styles.line} />
+
+      <Text style={[styles.heading, { width: '100%', textAlign: 'center'}]}>Select Practitioner</Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToInfo}>
