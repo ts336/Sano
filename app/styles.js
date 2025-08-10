@@ -176,7 +176,51 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     marginRight: 6,
     borderRadius: 20,
     boxShadow: '0 4px 4px 0 rgba(0, 0, 0, 0.25)',
-  }
+  },
+  continueButtonDisabled: {
+    backgroundColor: '#77888C',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginRight: 6,
+    borderRadius: 20,
+    boxShadow: '0 4px 4px 0 rgba(0, 0, 0, 0.25)',
+  },
+  radioGroupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%', // Adjust width as needed
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  radioButton: {
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#488286',
+    backgroundColor: '#e0e0e0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  selectedRadioButton: {
+    backgroundColor: '#4DBBBB',
+    borderColor: '#4DBBBB',
+  },
+  radioButtonText: { // default text
+    fontSize: 16,
+    color: '#333', 
+    fontWeight: '600',
+  },
+  selectedRadioButtonText: { // text when selected
+    color: '#FFFFFF', 
+  },
 });
 
 export default styles;

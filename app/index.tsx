@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'; // for write to file
 import React, { useState } from 'react';
-import { Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from './styles'; // importing stylesheet
 
 // Home screen, accepts onLogout and onNavigateToInfo props
@@ -47,12 +48,96 @@ const BeforeYouBookScreen = ({ onGoBackToHome, onNavigateToAppointmentForm }) =>
 };
 
 // Appointment Form Screen
-const AppointmentFormScreen = ({onGoBackToInfo}) => {
-  return (
+const AppointmentFormScreen = ({ onGoBackToInfo }) => {
+  // states for radio button, saving to file and error message
+  const [selectedAppointmentType, setSelectedAppointmentType] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // error handling
+  const handleSaveAppointment = async () => {
+    if (!selectedAppointmentType) {
+      setErrorMessage('Please select an appointment type.');
+      return;
+    }
+
+    setIsSaving(true);
+    setErrorMessage('');
+
+    // save to file: options chosen
+    try {
+      const appointmentData = {
+        type: selectedAppointmentType,
+      };
+      
+      const jsonValue = JSON.stringify(appointmentData);
+      
+      await AsyncStorage.setItem('appointment_data', jsonValue);
+    } catch (error) {
+      setErrorMessage(`Failed to save: ${error}`);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // conditional styling for continue button
+  const isEnabled = selectedAppointmentType !== null;
+  const buttonStyleForm = isEnabled ? styles.continueButton : styles.continueButtonDisabled;
+
+  // if selected appointment type, changes style of button (radio button)
+  // continue button disabled if saving or no appointment type has been selected
+  return ( 
     <View style={styles.container}>
-      <Text style={styles.heading}>Appointment Form</Text>
-      <Text style={styles.normalColor}>Fill out your details to book.</Text>
-      <Button title="Back" onPress={onGoBackToInfo} />
+      <Text style={styles.heading}>Appointment Type</Text>
+      <View style={styles.radioGroupContainer}>
+        <TouchableOpacity
+          style={[
+            styles.radioButton,
+            selectedAppointmentType === 'Virtual' && styles.selectedRadioButton,
+          ]}
+          onPress={() => setSelectedAppointmentType('Virtual')}
+        >
+          <Text style={[
+            styles.radioButtonText,
+            selectedAppointmentType === 'Virtual' && styles.selectedRadioButtonText,
+          ]}>
+            Virtual
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.radioButton,
+            selectedAppointmentType === 'In-person' && styles.selectedRadioButton,
+          ]}
+          onPress={() => setSelectedAppointmentType('In-person')}
+        >
+          <Text style={[
+            styles.radioButtonText,
+            selectedAppointmentType === 'In-person' && styles.selectedRadioButtonText,
+          ]}>
+            In-person
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={onGoBackToInfo}>
+          <Text style={styles.normalWhite}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={buttonStyleForm}
+          onPress={handleSaveAppointment}
+          disabled={isSaving || !selectedAppointmentType}
+        >
+          {isSaving ? (
+            <ActivityIndicator color="#4DBBBB" />
+          ) : (
+            <Text style={styles.normalWhite}>Continue</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+      {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
     </View>
   );
 };
@@ -83,7 +168,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
   };
 
   const isEnabled = email.length > 0 && password.length > 0; // Enables button when there is input
-  const buttonStyle = isEnabled ? styles.enabledLoginButton : styles.disabledLoginButton; // ternary operator
+  const buttonStyleLogin = isEnabled ? styles.enabledLoginButton : styles.disabledLoginButton; // ternary operator
 
   return ( //view screen (what will be returned to the screen)
     <View style={styles.container}>
@@ -111,7 +196,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       </View>
       {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
       <TouchableOpacity
-        style={buttonStyle} // conditional style for enabled and disabled
+        style={buttonStyleLogin} // conditional style for enabled and disabled
         onPress={handleLogin}
         disabled={!isEnabled} // disable button press
       >
