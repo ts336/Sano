@@ -21,7 +21,7 @@ const HomeScreen = ({ onLogout, onNavigateToInfo }) => {
 };
 
 // Before you book screen, accepts onGoBackToHome prop
-const BeforeYouBookScreen = ({ onGoBackToHome }) => {
+const BeforeYouBookScreen = ({ onGoBackToHome, onNavigateToAppointmentForm }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Before you book...</Text>
@@ -35,10 +35,24 @@ const BeforeYouBookScreen = ({ onGoBackToHome }) => {
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToHome}>
           <Text style={styles.normalWhite}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.continueButton}>
+        <TouchableOpacity
+          style={styles.continueButton}
+          onPress={onNavigateToAppointmentForm}
+        >
           <Text style={styles.normalWhite}>No, I am not.</Text>
         </TouchableOpacity>
       </View>
+    </View>
+  );
+};
+
+// Appointment Form Screen
+const AppointmentFormScreen = ({onGoBackToInfo}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>Appointment Form</Text>
+      <Text style={styles.normalColor}>Fill out your details to book.</Text>
+      <Button title="Back" onPress={onGoBackToInfo} />
     </View>
   );
 };
@@ -127,6 +141,14 @@ const App = () => {
     setCurrentScreen('home'); // Go back from before you book to home
   };
 
+  const navigateToAppointmentForm = () => {
+    setCurrentScreen('appointmentForm');
+  };
+
+  const goBackToInfo = () => {
+    setCurrentScreen('info');
+  };
+
   // If user is logged in, show the Home Screen or before you book screen
   if (isLoggedIn) {
     if (currentScreen === 'home') {
@@ -137,7 +159,14 @@ const App = () => {
         />
       );
     } else if (currentScreen === 'info') { // Currently, if logged in, can only be on home or info
-      return <BeforeYouBookScreen onGoBackToHome={navigateToHomeFromInfo} />;
+      return (
+        <BeforeYouBookScreen
+          onGoBackToHome={navigateToHomeFromInfo}
+          onNavigateToAppointmentForm={navigateToAppointmentForm}
+        />
+      );
+    } else if (currentScreen === 'appointmentForm') {
+      return <AppointmentFormScreen onGoBackToInfo={goBackToInfo} />;
     }
   }
 

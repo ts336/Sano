@@ -48,7 +48,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     color: '#FFFFFF',
   },
   heading: {
-    marginTop: 90,
+    marginTop: 85,
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 50,
     width: '100%',
     textAlign: 'left',
     paddingLeft: 14,
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    marginTop: 27,
   },
   backButton: {
     backgroundColor: '#488286',
@@ -170,8 +169,8 @@ const styles = StyleSheet.create({ //stylesheet for Sano
   },
   continueButton: {
     backgroundColor: '#4DBBBB',
-    paddingLeft: 12,
-    paddingRight: 12,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
     marginRight: 6,
