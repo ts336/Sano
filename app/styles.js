@@ -5,7 +5,7 @@ const styles = StyleSheet.create({ //stylesheet for login
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 33,
+    padding: 26,
   },
   title: {
     marginTop: 135,
@@ -48,13 +48,14 @@ const styles = StyleSheet.create({ //stylesheet for login
     color: '#FFFFFF',
   },
   heading: {
-
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 30,
+    marginTop: 90,
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 27,
+    color: '#2A3A3E',
+    width: '100%',
+    textAlign: 'left',
+    paddingLeft: 13,
   },
   input: {
     width: '80%',
@@ -97,6 +98,29 @@ const styles = StyleSheet.create({ //stylesheet for login
     fontSize: 18,
     fontWeight: 'bold',
   },
+  imageButton: {
+    width: '100%',
+    padding: 0,
+    marginTop: 20,
+    borderRadius: 30,
+    overflow: 'hidden',
+    border: '1px solid rgba(255, 255, 255, 0.10)',
+    marginBottom: 350,
+  },
+  imageBackground: {
+    width: '100%',
+    height: 190,
+    justifyContent: 'flex-end', 
+    alignItems: 'flex-start',
+    overflow: 'hidden',
+  },
+  imageBackgroundText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 500,
+    paddingLeft: 27,
+    paddingBottom: 20,
+  }
 });
 
 export default styles;

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from './styles'; // importing stylesheet
 
 // Home screen
 const HomeScreen = ({ onLogout }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Welcome!</Text>
-      <Text style={styles.subtitle}>You have successfully logged in.</Text>
+      <Text style={styles.heading}>Good morning{'\n'}Franca</Text>
+      <TouchableOpacity style={styles.imageButton}>
+        <ImageBackground
+          source={require('../assets/images/background-appointment.png')} // For local image saved in assets
+          style={styles.imageBackground}
+        >
+        <Text style={styles.imageBackgroundText}>Book an appointment</Text>
+        </ImageBackground>
+      </TouchableOpacity>
       <Button title="Logout" onPress={onLogout}/>
     </View>
   );
@@ -26,7 +33,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       setErrorMessage('Email and password cannot be empty.');
     } else {
       // Login logic
-      if (email === 'test@example.com' && password === 'password123') {
+      if (email === 'test' && password === '123') {
         setErrorMessage(''); // Clear any previous error messages.
         
         // Call the function passed in the props to signal that the login was successful
