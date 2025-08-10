@@ -30,7 +30,15 @@ const BeforeYouBookScreen = ({ onGoBackToHome }) => {
         source={require('../assets/images/symptoms.png')}
         style={styles.symptoms}>
       </Image>
-      <Button title="Home" onPress={onGoBackToHome} />
+      <Text style={styles.bold}>If yes, call 111 immediately.</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={onGoBackToHome}>
+          <Text style={styles.normalWhite}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.continueButton}>
+          <Text style={styles.normalWhite}>No, I am not.</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
