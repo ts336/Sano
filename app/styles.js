@@ -138,8 +138,10 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     paddingRight: 14,
   },
   symptoms: {
-    marginTop: 20,
-    marginLeft: -7,
+    marginTop: 25,
+    marginLeft: -3,
+    width: '100%',
+    height: 444,
   }
 });
 
