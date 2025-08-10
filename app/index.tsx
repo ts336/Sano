@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from './styles'; // importing stylesheet
 
-// Home screen
-const HomeScreen = ({ onLogout }) => {
+// Home screen, accepts onLogout and onNavigateToInfo props
+const HomeScreen = ({ onLogout, onNavigateToInfo }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Good morning{'\n'}Franca</Text>
-      <TouchableOpacity style={styles.imageButton}>
+      <TouchableOpacity style={styles.imageButton} onPress={onNavigateToInfo}>
         <ImageBackground
           source={require('../assets/images/background-appointment.png')} // For local image saved in assets
           style={styles.imageBackground}
@@ -20,8 +20,19 @@ const HomeScreen = ({ onLogout }) => {
   );
 };
 
+// Before you book screen, accepts onGoBackToHome prop
+const BeforeYouBookScreen = ({ onGoBackToHome }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.heading}>Before you book...</Text>
+      <Text>Here you can schedule your next visit.</Text>
+      <Button title="Home" onPress={onGoBackToHome} />
+    </View>
+  );
+};
 
-// Accepts onLoginSuccess prop
+
+// Login screen, accepts onLoginSuccess prop
 const LoginScreen = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +45,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
     } else {
       // Login logic
       if (email === 'test' && password === '123') {
-        setErrorMessage(''); // Clear any previous error messages.
+        setErrorMessage(''); // Clear any previous error messages
         
         // Call the function passed in the props to signal that the login was successful
         onLoginSuccess();
@@ -48,7 +59,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
   const isEnabled = email.length > 0 && password.length > 0; // Enables button when there is input
   const buttonStyle = isEnabled ? styles.enabledLoginButton : styles.disabledLoginButton; // ternary operator
 
-  return ( //view screen
+  return ( //view screen (what will be returned to the screen)
     <View style={styles.container}>
       <Text style={styles.title}>Sano</Text>
       <Text style={styles.slogan}>Healthcare made easy.</Text>
@@ -74,7 +85,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       </View>
       {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
       <TouchableOpacity
-        style={buttonStyle} // conditional style
+        style={buttonStyle} // conditional style for enabled and disabled
         onPress={handleLogin}
         disabled={!isEnabled} // disable button press
       >
@@ -84,18 +95,41 @@ const LoginScreen = ({ onLoginSuccess }) => {
   );
 };
 
-// This is the main component that controls which screen is visible
-// It uses a state variable `isLoggedIn` to decide
+// Main component that controls which screen is visible
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // New state to manage screens after login
+  const [currentScreen, setCurrentScreen] = useState('home');
 
-  // If the user is logged in, show the HomeScreen. Otherwise, show the LoginScreen.
+  // below are the navigation functions for moving the user across the app
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setCurrentScreen('home'); // Reset to home screen on logout
+  };
+
+  const navigateToInfo = () => {
+    setCurrentScreen('info'); // Changes screen to before you book
+  };
+
+  const navigateToHomeFromInfo = () => {
+    setCurrentScreen('home'); // Go back from before you book to home
+  };
+
+  // If user is logged in, show the Home Screen or before you book screen
   if (isLoggedIn) {
-    // Pass a function to HomeScreen to allow the user to log out
-    return <HomeScreen onLogout={() => setIsLoggedIn(false)} />;
+    if (currentScreen === 'home') {
+      return (
+        <HomeScreen
+          onLogout={handleLogout}
+          onNavigateToInfo={navigateToInfo} // Pass the navigation function from above
+        />
+      );
+    } else if (currentScreen === 'info') { // Currently, if logged in, can only be on home or info
+      return <BeforeYouBookScreen onGoBackToHome={navigateToHomeFromInfo} />;
+    }
   }
 
-  // Pass a function to LoginScreen that sets isLoggedIn to true on success.
+  // If user is not logged in, show the Login Screen.
   return <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />;
 };
 
