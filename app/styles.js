@@ -11,6 +11,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
   },
   title: {
     marginTop: 90,
+    paddingLeft: 5,
     color: '#0F1A1D',
     fontSize: 64,
     fontWeight: 600,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     fontWeight: 600,
     width: '100%',
     textAlign: 'right',
-    paddingRight: 7,
+    paddingRight: 15,
   },
   box: {
     marginTop: 50,
