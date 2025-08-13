@@ -145,13 +145,17 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
   const [openTime, setOpenTime] = useState(false); // controls time dropdown visibility
   const [selectedTime, setSelectedTime] = useState(null);
 
+  // states for user input text boxes
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
   // states for save to file and error messages
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   // error handling just in case button is not disabled, all must be selected to continue
   const handleSaveAppointment = async () => {
-    if (!selectedAppointmentType || !selectedPractitioner || !selectedMonth || !selectedDay || !selectedTime) {
+    if (!selectedAppointmentType || !selectedPractitioner || !selectedMonth || !selectedDay || !selectedTime || !email || !phoneNumber) {
       setErrorMessage('Please complete all sections');
       return;
     }
@@ -167,6 +171,8 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
         month: selectedMonth,
         day: selectedDay,
         time: selectedTime,
+        email: email,
+        phoneNumber: phoneNumber,
       };
       
       const jsonValue = JSON.stringify(appointmentData);
@@ -180,13 +186,32 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
   };
 
   // conditional styling for continue button
-  const isEnabled = selectedAppointmentType !== null && selectedPractitioner !== null && selectedMonth !== null && selectedDay !== null && selectedTime !== null;
+  const isEnabled = selectedAppointmentType !== null && selectedPractitioner !== null && selectedMonth !== null && selectedDay !== null && selectedTime !== null && email.length > 0 && phoneNumber.length > 0;
   const buttonStyleForm = isEnabled ? styles.continueButton : styles.continueButtonDisabled;
 
   // if selected appointment type, changes style of button (radio button)
   // continue button disabled if saving or no appointment type has been selected
   return ( 
-    <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', paddingTop: -50}]}>
+    <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', paddingTop: 40}]}>
+      <Text style={[styles.heading, { width: '100%', textAlign: 'center'}]}>Enter your Details</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="numeric"
+        />
+      
+      <View style={styles.line} />
+      
       <Text style={[styles.heading, { width: '100%', textAlign: 'center' }]}>Appointment Type</Text>
       <View style={styles.radioGroupContainer}>
         <TouchableOpacity
@@ -313,8 +338,6 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
           listMode="SCROLLVIEW"
         />
       </View>
-
-      <View style={styles.line} />
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToInfo}>
