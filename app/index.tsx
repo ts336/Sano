@@ -146,12 +146,27 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
   const [selectedTime, setSelectedTime] = useState(null);
 
   // states for user input text boxes
-  const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
   // states for save to file and error messages
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  // function for validating the name given
+  const validateFullName = (name) => {
+    setErrorMessage(''); // Clear previous error messages before validation
+
+    // To check for characters that are not letters, spaces or hyphens
+    const invalidCharsRegex = /[^a-zA-Z\s-]/;
+
+    if (invalidCharsRegex.test(name)) {
+      setErrorMessage('Full name can only contain letters, spaces and hyphens.');
+      return false;
+    }
+
+    return true; // full name is valid
+  };
 
   // function for validating (simple check) phone number entered
   const validatePhoneNumber = (number) => {
@@ -183,9 +198,13 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
 
   // error handling just in case button is not disabled, all must be selected to continue
   const handleSaveAppointment = async () => {
-    if (!selectedAppointmentType || !selectedPractitioner || !selectedMonth || !selectedDay || !selectedTime || !email || !phoneNumber) {
+    if (!selectedAppointmentType || !selectedPractitioner || !selectedMonth || !selectedDay || !selectedTime || !fullName || !phoneNumber) {
       setErrorMessage('Please complete all sections');
       return;
+    }
+
+    if (!validateFullName(fullName)) {
+      return; // If validation fails, stop the function. The error message is already set.
     }
 
     // Validate phone number specifically
@@ -205,7 +224,7 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
         month: selectedMonth,
         day: selectedDay,
         time: selectedTime,
-        email: email,
+        fullName: fullName,
         phoneNumber: phoneNumber.replace(/\s/g, ''), // saving phone no. without spaces
       };
       
@@ -228,7 +247,7 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
                    selectedMonth !== null && 
                    selectedDay !== null && 
                    selectedTime !== null && 
-                   email.length > 0 && 
+                   fullName.length > 0 && 
                    phoneNumber.length > 0; // Check if phone number has content
   const buttonStyleForm = isEnabled ? styles.continueButton : styles.continueButtonDisabled;
 
@@ -239,11 +258,11 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
       <Text style={[styles.heading, { width: '100%', textAlign: 'center'}]}>Enter your Details</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
           keyboardType="email-address"
-          autoCapitalize="none"
+          autoCapitalize="words"
         />
         <TextInput
           style={styles.input}
@@ -471,7 +490,7 @@ const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) =
 
         <Text style={styles.subheading}>Details</Text>
         <View style={styles.line2}></View>
-        <Text style={styles.normalColor}>Email: {appointmentData.email}</Text>
+        <Text style={styles.normalColor}>Full Name: {appointmentData.fullName}</Text>
         <Text style={styles.normalColor}>Phone: {appointmentData.phoneNumber}</Text>
       </View>
 
