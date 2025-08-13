@@ -250,6 +250,20 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     fontSize: 12,
     color: '#333',
   },
+  subheading: {
+    color: '#488286',
+    fontSize: 18,
+    fontWeight: 700,
+    marginTop: 12,
+    textAlign: 'left',
+  },
+  line2: {
+    width: 160,
+    height: 1,
+    backgroundColor: '#488286',
+    marginVertical: 15,
+    marginLeft: 3,
+  }
 });
 
 export default styles;

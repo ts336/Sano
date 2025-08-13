@@ -367,9 +367,26 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
 const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.heading, { paddingLeft: 13 }]}>Confirm Booking</Text>
-      <Text style={styles.normalColor}>Your appointment details will be shown here.</Text>
+      <Text style={[styles.heading, { paddingLeft: 13, marginBottom: 40 }]}>Confirm Booking</Text>
       
+      <View style={{ width: '100%', alignItems: 'flex-start', paddingLeft: 20 }}>
+        <Text style={styles.subheading}>Type</Text>
+        <View style={styles.line2}></View>
+        <Text>Placeholder</Text>
+
+        <Text style={styles.subheading}>Practitioner</Text>
+        <View style={styles.line2}></View>
+        <Text>Placeholder</Text>
+
+        <Text style={styles.subheading}>Date and Time</Text>
+        <View style={styles.line2}></View>
+        <Text>Placeholder</Text>
+
+        <Text style={styles.subheading}>Details</Text>
+        <View style={styles.line2}></View>
+        <Text>Placeholder</Text>
+      </View>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToAppointmentForm}>
           <Text style={styles.normalWhite}>Back</Text>
