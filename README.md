@@ -24,39 +24,39 @@ To run this application, you need to have the following installed:
 
 This is a complete walkthrough on how to use this program. First, ensure the above requirements are met. **Do not move directories until specified.**
 
-1. **Check that npx and npm are up to date. You can use commands like npm -v to check the version.**
-2. **Check that git is up to date.**
+1. **Check that `npx` and `npm` are up to date. You can use commands like `npm -v` to check the version.**
+2. **Check that `git` is up to date.**
 3. **In your terminal, navigate to the directory where you want to have the Sano folder (or just use your desktop - no action required).**
 
 **Clone the Repository**
 
 Staying in the current terminal tab, run the following command to download the project:  
-<br/>git clone <https://github.com/ts336/Sano>
+`git clone <https://github.com/ts336/Sano>`
 
 **Navigate to the Project Directory**
 
 Change into the project folder:  
-<br/>cd Sano
+`cd Sano`
 
 **Install Dependencies**
 
 Install all the necessary packages for the app:  
-<br/>npm install
+`npm install`
 
-If this does not work, try adding --tunnel to the end of the command.
+If this does not work, try adding `--tunnel` to the end of the command.
 
-If Expo says any packages need updates, enter: npm update nameofpackage
+If Expo says any packages need updates, enter: `npm update nameofpackage`
 
 **Run the Application**
 
 Start the Expo development server:  
-<br/>npx expo start
+`npx expo start`
 
 1. After running this command, a QR code will appear in your terminal.
 2. **View the App**
     - **On your phone:** Open the **Camera** app and scan the QR code on your terminal. The Expo Go app should load automatically. If Expo Go is not installed on your phone, you will be directed to the app store.
-    - **On a web browser:** Alternatively, you may open the web version by entering w in the terminal. However, this is not the intended use, and the display may be awkward.
-    - **On an emulator:** Press a for Android or i for iOS to launch the app on an emulator if you have one set up.
+    - **On a web browser:** Alternatively, you may open the web version by entering `w` in the terminal. However, this is not the intended use, and the display may be awkward.
+    - **On an emulator:** Press `a` for Android or `i` for iOS to launch the app on an emulator if you have one set up.
 
 ## **Important Notes ⚠️**
 
