@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'; // for write to file
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles'; // importing stylesheet
@@ -365,29 +365,76 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
 
 // Confirm Booking Screen
 const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) => {
+  // used to fetch data from saved file
+  const [appointmentData, setAppointmentData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect is a hook for handling external systems and syncing them with componenets
+  useEffect(() => {
+    const fetchAppointmentData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('appointment_data');
+        if (jsonValue != null) {
+          setAppointmentData(JSON.parse(jsonValue));
+        }
+      } catch (e) {
+        console.error("Failed to fetch appointment data", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAppointmentData();
+  }, []); // empty array stop further runs, only one run of the function is needed 
+
+  // display loading indicator while data is being fetched
+  if (isLoading) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center' }]}>
+        <ActivityIndicator size="large" color="#4DBBBB" />
+      </View>
+    );
+  }
+
+  // display error message if no data was found
+  if (!appointmentData) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.heading}>Booking Not Found</Text>
+        <Text style={styles.normalColor}>There was an error loading your appointment details.</Text>
+        <TouchableOpacity style={styles.continueButton} onPress={onNavigateToHome}>
+          <Text style={styles.normalWhite}>Return to Home</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  
   return (
     <View style={styles.container}>
-      <Text style={[styles.heading, { paddingLeft: 13, marginBottom: 40 }]}>Confirm Booking</Text>
+      <Text style={[styles.heading, { paddingLeft: 13, marginBottom: 30 }]}>Confirm Booking</Text>
       
-      <View style={{ width: '100%', alignItems: 'flex-start', paddingLeft: 20 }}>
+      <View style={{ width: '100%', alignItems: 'flex-start', paddingLeft: 15 }}>
         <Text style={styles.subheading}>Type</Text>
         <View style={styles.line2}></View>
-        <Text>Placeholder</Text>
+        <Text style={styles.normalColor}>{appointmentData.type}</Text>
 
         <Text style={styles.subheading}>Practitioner</Text>
         <View style={styles.line2}></View>
-        <Text>Placeholder</Text>
+        <Text style={styles.normalColor}>{appointmentData.practitioner}</Text>
 
         <Text style={styles.subheading}>Date and Time</Text>
         <View style={styles.line2}></View>
-        <Text>Placeholder</Text>
+        <Text style={styles.normalColor}>
+          {appointmentData.month} {appointmentData.day}, {appointmentData.time}
+        </Text>
 
         <Text style={styles.subheading}>Details</Text>
         <View style={styles.line2}></View>
-        <Text>Placeholder</Text>
+        <Text style={styles.normalColor}>Email: {appointmentData.email}</Text>
+        <Text style={styles.normalColor}>Phone: {appointmentData.phoneNumber}</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View style={[styles.buttonContainer, { marginTop: 160 }]}>
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToAppointmentForm}>
           <Text style={styles.normalWhite}>Back</Text>
         </TouchableOpacity>

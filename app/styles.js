@@ -254,7 +254,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     color: '#488286',
     fontSize: 18,
     fontWeight: 700,
-    marginTop: 12,
+    marginTop: 25,
     textAlign: 'left',
   },
   line2: {
