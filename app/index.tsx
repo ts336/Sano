@@ -130,7 +130,7 @@ const BeforeYouBookScreen = ({ onGoBackToHome, onNavigateToAppointmentForm }) =>
 };
 
 // Appointment Form Screen
-const AppointmentFormScreen = ({ onGoBackToInfo }) => {
+const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) => {
   // states for radio buttons
   const [selectedAppointmentType, setSelectedAppointmentType] = useState(null);
   const [selectedPractitioner, setSelectedPractitioner] = useState(null);
@@ -178,6 +178,9 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
       const jsonValue = JSON.stringify(appointmentData);
       
       await AsyncStorage.setItem('appointment_data', jsonValue);
+
+      onNavigateToConfirmBooking();
+      
     } catch (error) {
       setErrorMessage(`Failed to save: ${error.message || error}`);
     } finally {
@@ -360,6 +363,26 @@ const AppointmentFormScreen = ({ onGoBackToInfo }) => {
   );
 };
 
+// Confirm Booking Screen
+const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={[styles.heading, { paddingLeft: 13 }]}>Confirm Booking</Text>
+      <Text style={styles.normalColor}>Your appointment details will be shown here.</Text>
+      
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={onGoBackToAppointmentForm}>
+          <Text style={styles.normalWhite}>Back</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.continueButton} onPress={onNavigateToHome}>
+          <Text style={styles.normalWhite}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 // Main component that controls which screen is visible
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -388,6 +411,18 @@ const App = () => {
     setCurrentScreen('info');
   };
 
+  const navigateToConfirmBooking = () => {
+    setCurrentScreen('confirmBooking');
+  };
+
+  const goBackToAppointmentForm = () => {
+    setCurrentScreen('appointmentForm');
+  };
+
+  const navigateToHomeFromConfirm = () => {
+    setCurrentScreen('home');
+  };
+
   // If user is logged in, show the Home Screen or before you book screen
   if (isLoggedIn) {
     if (currentScreen === 'home') {
@@ -405,7 +440,19 @@ const App = () => {
         />
       );
     } else if (currentScreen === 'appointmentForm') {
-      return <AppointmentFormScreen onGoBackToInfo={goBackToInfo} />;
+      return (
+        <AppointmentFormScreen
+          onGoBackToInfo={goBackToInfo}
+          onNavigateToConfirmBooking={navigateToConfirmBooking}
+        />
+      );
+    } else if (currentScreen === 'confirmBooking') {
+      return (
+        <ConfirmBookingScreen
+          onGoBackToAppointmentForm={goBackToAppointmentForm}
+          onNavigateToHome={navigateToHomeFromConfirm}
+        />
+      );
     }
   }
 
