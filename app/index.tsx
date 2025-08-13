@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'; // for write to file
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles'; // importing stylesheet
 
@@ -447,6 +447,19 @@ const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) =
     fetchAppointmentData();
   }, []); // empty array stop further runs, only one run of the function is needed 
 
+  const handleSubmit = () => {
+    Alert.alert(
+      "Success",
+      "Your appointment has been successfully booked!",
+      [
+        {
+          text: "OK",
+          onPress: onNavigateToHome
+        }
+      ]
+    );
+  };
+
   // display loading indicator while data is being fetched
   if (isLoading) {
     return (
@@ -499,7 +512,7 @@ const ConfirmBookingScreen = ({ onGoBackToAppointmentForm, onNavigateToHome }) =
           <Text style={styles.normalWhite}>Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.continueButton} onPress={onNavigateToHome}>
+        <TouchableOpacity style={styles.continueButton} onPress={handleSubmit}>
           <Text style={styles.normalWhite}>Submit</Text>
         </TouchableOpacity>
       </View>
