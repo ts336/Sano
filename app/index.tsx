@@ -153,6 +153,34 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // function for validating (simple check) phone number entered
+  const validatePhoneNumber = (number) => {
+    setErrorMessage(''); // Clear previous error messages before validation
+
+    // Remove any spaces from the string to check no. of digits
+    const numericOnly = number.replace(/\s/g, '');
+
+    // 1. Ensure the string contains only numbers
+    if (!/^\d+$/.test(numericOnly)) {
+      setErrorMessage('Phone number must contain only digits. Spaces are fine.');
+      return false;
+    }
+
+    // 2. Ensure the number starts with 0
+    if (!numericOnly.startsWith('0')) {
+      setErrorMessage('Phone number must start with 0.');
+      return false;
+    }
+
+    // 3. Ensure the number has a length of 9 to 10 digits
+    if (numericOnly.length < 9 || numericOnly.length > 10) {
+      setErrorMessage('Phone number must be between 9 and 10 digits long.');
+      return false;
+    }
+
+    return true; // Phone number is valid
+  };
+
   // error handling just in case button is not disabled, all must be selected to continue
   const handleSaveAppointment = async () => {
     if (!selectedAppointmentType || !selectedPractitioner || !selectedMonth || !selectedDay || !selectedTime || !email || !phoneNumber) {
@@ -160,10 +188,16 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
       return;
     }
 
+    // Validate phone number specifically
+    if (!validatePhoneNumber(phoneNumber)) {
+      // The error message is already set by validatePhoneNumber
+      return;
+    }
+
     setIsSaving(true);
     setErrorMessage('');
 
-    // save to file: options chosen
+    // Save to file: options chosen
     try {
       const appointmentData = {
         type: selectedAppointmentType,
@@ -172,7 +206,7 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
         day: selectedDay,
         time: selectedTime,
         email: email,
-        phoneNumber: phoneNumber,
+        phoneNumber: phoneNumber.replace(/\s/g, ''), // saving phone no. without spaces
       };
       
       const jsonValue = JSON.stringify(appointmentData);
@@ -189,7 +223,13 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
   };
 
   // conditional styling for continue button
-  const isEnabled = selectedAppointmentType !== null && selectedPractitioner !== null && selectedMonth !== null && selectedDay !== null && selectedTime !== null && email.length > 0 && phoneNumber.length > 0;
+  const isEnabled = selectedAppointmentType !== null && 
+                   selectedPractitioner !== null && 
+                   selectedMonth !== null && 
+                   selectedDay !== null && 
+                   selectedTime !== null && 
+                   email.length > 0 && 
+                   phoneNumber.length > 0; // Check if phone number has content
   const buttonStyleForm = isEnabled ? styles.continueButton : styles.continueButtonDisabled;
 
   // if selected appointment type, changes style of button (radio button)
@@ -341,6 +381,8 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
           listMode="SCROLLVIEW"
         />
       </View>
+      
+      {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={onGoBackToInfo}>
@@ -358,7 +400,6 @@ const AppointmentFormScreen = ({ onGoBackToInfo, onNavigateToConfirmBooking }) =
           )}
         </TouchableOpacity>
       </View>
-      {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
     </View>
   );
 };

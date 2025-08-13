@@ -77,6 +77,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
   errorText: {
     color: 'red',
     fontSize: 14,
+    textAlign: 'center',
   },
   enabledLoginButton: {
     width: '80%',
@@ -161,6 +162,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    marginTop: 10,
   },
   backButton: {
     backgroundColor: '#488286',
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    marginBottom: 60,
+    marginBottom: 30,
     marginTop: 10,
   },
   dropdownContainer: {
