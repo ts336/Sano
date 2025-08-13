@@ -194,7 +194,7 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     justifyContent: 'space-around',
     width: '100%', // Adjust width as needed
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   radioButton: {
     paddingVertical: 15,
@@ -228,6 +228,27 @@ const styles = StyleSheet.create({ //stylesheet for Sano
     width: '90%', 
     backgroundColor: '#ccc',
     marginTop: 15, 
+  },
+  pickerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  dropdownContainer: {
+    width: '32%',
+    height: 40,
+  },
+  dropdown: {
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  dropdownText: {
+    fontSize: 12,
+    color: '#333',
   },
 });
 
