@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'; // for write to file
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react'; // for hooks
+import { ActivityIndicator, Alert, Button, Image, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native'; // basic components of React Native
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles'; // importing stylesheet
 
+// constants to be used across the program
 const fixedUsername = 'test';
 const fixedPassword = '123';
 const months = [
@@ -541,23 +542,23 @@ const App = () => {
   };
 
   const navigateToAppointmentForm = () => {
-    setCurrentScreen('appointmentForm');
+    setCurrentScreen('appointmentForm'); // Go to form from before you book
   };
 
   const goBackToInfo = () => {
-    setCurrentScreen('info');
+    setCurrentScreen('info'); // Go back to info
   };
 
   const navigateToConfirmBooking = () => {
-    setCurrentScreen('confirmBooking');
+    setCurrentScreen('confirmBooking'); // go to confirm booking page
   };
 
   const goBackToAppointmentForm = () => {
-    setCurrentScreen('appointmentForm');
+    setCurrentScreen('appointmentForm'); // go back to form from confirm booking page
   };
 
   const navigateToHomeFromConfirm = () => {
-    setCurrentScreen('home');
+    setCurrentScreen('home'); // go home from confirm booking
   };
 
   // If user is logged in, show the Home Screen or before you book screen
