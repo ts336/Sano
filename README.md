@@ -27,8 +27,9 @@ This is a complete walkthrough on how to use this program. First, ensure the abo
 1. **Check that `npx` and `npm` are up to date. You can use commands like `npm -v` to check the version.**
 2. **Check that `git` is up to date.**
 3. **In your terminal, navigate to the directory where you want to have the Sano folder (or just use your desktop - no action required).**
-_  To move directories: `cd nameOfDirectory`
-   To make a new directory: `mkdir nameOfDirectory`_
+
+_To move directories: `cd nameOfDirectory`_
+_To make a new directory: `mkdir nameOfDirectory`_
    
 
 **Clone the Repository**
