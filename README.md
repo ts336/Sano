@@ -28,6 +28,10 @@ This is a complete walkthrough on how to use this program. First, ensure the abo
 2. **Check that `git` is up to date.**
 3. **In your terminal, navigate to the directory where you want to have the Sano folder (or just use your desktop - no action required).**
 
+_To move directories: `cd nameOfDirectory(file name)`_
+_To make a new directory: `mkdir nameOfDirectory(file name)`_
+   
+
 **Clone the Repository**
 
 Staying in the current terminal tab, run the following command to download the project:  
@@ -43,14 +47,14 @@ Change into the project folder:
 Install all the necessary packages for the app:  
 `npm install`
 
-If this does not work, try adding `--tunnel` to the end of the command.
-
 If Expo says any packages need updates, enter: `npm update nameofpackage`
 
 **Run the Application**
 
 Start the Expo development server:  
 `npx expo start`
+
+If this does not work, try adding `--tunnel` to the end of the command.
 
 1. After running this command, a QR code will appear in your terminal.
 2. **View the App**
@@ -71,3 +75,4 @@ Start the Expo development server:
 - **npm install fails:** This could be due to network issues or an outdated Node.js version. Try running the command again, or check your Node.js installation.
 - **App not loading on phone:** Ensure your computer and your phone are connected to the **same Wi-Fi network**.
 - **Can't find the QR code:** Scroll up in your terminal to see the output from the npx expo start command.
+- **Same network but still not working:** Please use the command `npx expo start --tunnel`, or try from your home wifi (organisation and public wifi may have restrictions on them, preventing the app from working).
